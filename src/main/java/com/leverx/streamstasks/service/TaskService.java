@@ -3,9 +3,11 @@ package com.leverx.streamstasks.service;
 import com.leverx.streamstasks.mapper.TaskMapper;
 import com.leverx.streamstasks.model.Task;
 import com.leverx.streamstasks.model.TaskDto;
+import com.leverx.streamstasks.model.TaskGroupingDto;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.Collection;
 import java.util.List;
 
 import static com.leverx.streamstasks.model.TaskType.CODING;
@@ -13,6 +15,7 @@ import static com.leverx.streamstasks.model.TaskType.READING;
 import static com.leverx.streamstasks.model.TaskType.WRITING;
 import static java.time.Month.JULY;
 import static java.util.Comparator.comparing;
+import static java.util.stream.Collectors.groupingBy;
 import static java.util.stream.Collectors.joining;
 import static java.util.stream.Collectors.toList;
 
@@ -81,5 +84,9 @@ public class TaskService {
         return generateTasks().stream()
                 .map(TaskMapper::toDto)
                 .collect(toList());
+    }
+
+    public Collection<List<Task>> groupByParams(){
+        return generateTasks().stream().collect(groupingBy(TaskGroupingDto::of)).values();
     }
 }

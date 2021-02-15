@@ -22,4 +22,9 @@ class TaskServiceTest {
     void mapToDto() {
         System.out.println(taskService.mapToDto());
     }
+
+    @Test
+    void groupByParams() {
+        System.out.println(taskService.groupByParams());
+    }
 }
